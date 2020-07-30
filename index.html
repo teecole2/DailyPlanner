@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Daily Planner</title>
+  </head>
+
+  <body>
+    <header class="jumbotron">
+      <h1 class="display-3">My Daily Planner</h1>
+      <p class="lead">A simple calendar app for planning out your day</p>
+      <p id="currentDay" class="lead"></p>
+    </header>
+    <div class="container">
+      <!-- Timeblocks -->
+      <ul>
+        <li>
+            <span>9 AM</span>
+            <input type="text" id="9am" />
+            <button time="#9am"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>10 AM</span>
+            <input type="text" id="10am" />
+            <button time="#10am"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>11 AM</span>
+            <input type="text" id="11am" />
+            <button time="#11am"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>12 PM</span>
+            <input type="text" id="12pm" />
+            <button time="#12pm"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>1 PM</span>
+            <input type="text" id="1pm" />
+            <button time="#1pm"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>2 PM</span>
+            <input type="text" id="2pm" />
+            <button time="#2pm"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>3 PM</span>
+            <input type="text" id="3pm" />
+            <button time="#3pm"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>4 PM</span>
+            <input type="text" id="4pm" />
+            <button time="#4pm"class="saveBtn">Save</button>
+        </li>
+        <li>
+            <span>5 PM</span>
+            <input type="text" id="5pm" />
+            <button time="#5pm" class="saveBtn">Save</button>
+        </li>  
+      </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    
+  <script>
+      //how i save everything to local storage 
+      $("button").on("click", function () {
+          var timeId = $(this).attr("time");
+          var userTask = $(timeId).val();
+          localStorage.setItem(timeId, userTask);
+      });
+
+      var nineAm = localStorage.getItem("#9am");
+      if (nineAm) {
+          $("#9am").val(nineAm);
+      }
+      var tenAm = localStorage.getItem("#10am");
+      if (tenAm) {
+          $("#10am").val(tenAm);
+      }
+      var elevenAm = localStorage.getItem("#11am");
+      if (elevenAm) {
+          $("#11am").val(elevenAm);
+      }
+      var twelvePm = localStorage.getItem("#12pm");
+      if (twelvePm) {
+          $("#12pm").val(twelvePm);
+      }
+      var onePm = localStorage.getItem("#1pm");
+      if (onePm) {
+          $("#1pm").val(onePm);
+      }
+      var twoPm = localStorage.getItem("#2pm");
+      if (twoPm) {
+          $("#2pm").val(twoPm);
+      }
+      var threePm = localStorage.getItem("#3pm");
+      if (threePm) {
+          $("#3pm").val(threePm);
+      }
+      var fourPm = localStorage.getItem("#4pm");
+      if (fourPm) {
+          $("#4pm").val(fourPm);
+      }
+      var fivePm = localStorage.getItem("#5pm");
+      if (fivePm) {
+          $("#5pm").val(fivePm);
+      }
+
+
+      for (var i = 9; i <= 17; i++) {
+          // Get the current hour
+          var today=new Date();
+          var amPm = "am";
+          if (i >= 12) {
+              amPm = "pm";
+          }
+          var hour = i;
+          if (i > 12) {
+              hour -= 12;
+          }
+
+          //this is my if else statments for determing if its past, present, or future.
+          var targetId="#" + hour + amPm;
+          var currentTime=today.getHours()
+
+          var className = "future";
+          if(currentTime<i){
+            className="class future";
+          } else if (currentTime<i) {
+            className="class past"
+          } else {
+            className="class current";
+          }
+          $(targetId).addClass(className);
+          
+
+      }
+    
+      //how i log the current date and time to the page 
+      $("#currentDay").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
+  </script>
+  </body>
+</html>
